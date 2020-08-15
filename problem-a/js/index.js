@@ -13,18 +13,19 @@ const COLORS_9 = {
 /* Your code goes here! */
 
 //Create a variable `h1` that refers to the `<h1>` element in the DOM.
-
+let h1Elem = document.querySelector("h1");
 
 //Change the `textContent` of the `<h1>` element to be "Which Swatch?"
-
+h1Elem.textContent = "Which Swatch?";
 
 //Somehow the rainbow icon image was included without an alt tag! Set its `alt`
 //attribute to be "A beautiful rainbow".
-
+let imgElem = document.querySelector("header img");
+imgElem.alt = "A beautiful rainbow";
 
 //Give the image the Bootstrap-provided `float-right` CSS class to make it float
 //to the right of the screen
-
+imgElem.classList.add("float-right");
 
 /*Define a function `createColorBox()` that takes in two parameters: a color 
 string (e.g., "blue") and a numeric size (in pixels, e.g., 100). The function 
@@ -38,8 +39,14 @@ shoukld do the following:
 You can test this function by logging out the returned value and checking its
 attributes.
 */
-
-
+function createColorBox(colorString, numericSize){
+  let newDivElem = document.createElement("div");
+  newDivElem.classList.add("d-inline-block");
+  newDivElem.style.backgroundColor = colorString;
+  newDivElem.style.height = numericSize + "px";
+  newDivElem.style.width = numericSize + "px";
+  return newDivElem;
+}
 
 /* Define a function `getElementWidth()` that takes in a DOM element (not a 
 string!). This function should return the width in pixels (a number) of that
@@ -48,8 +55,9 @@ element.
    argument element. This method returns an Object containing the element's
    width and height. Return the `width` value of that object.
 */
-
-
+function getElementWidth(element) {
+  return element.getBoundingClientRect().width;
+}
 
 /* Define a function `renderPaletteRow()` that takes in two arguments: array of 
 color strings (like a SINGLE ELEMENT of the `COLORS_9` object), and a "parent" 
@@ -71,8 +79,13 @@ browser window unless you refresh.
 
 You should NOT include any test calls when running Jest tests!
 */
-
-
+function renderPaletteRow(colorArray, parentElem){
+  let newBigDivElem = document.createElement("div");
+  for (let each of colorArray){
+    newBigDivElem.appendChild(createColorBox(each, getElementWidth(parentElem)/colorArray.length));
+  }
+  parentElem.appendChild(newBigDivElem);
+}
 
 /* Define a function `renderPaletteTable()` that takes no arguments and renders 
 a color palette row for each of the palettes in the `COLORS_9` object into the 
@@ -84,13 +97,18 @@ Tip: note that `COLORS_9` is an object, not an array! You'll need to use a
 
 Call your `renderPaletteTable()` method to display all the color palettes!
 */
-
-
+function renderPaletteTable(){
+  let mainElem = document.querySelector("main");
+  for (let key in COLORS_9) {
+    renderPaletteRow(COLORS_9[key], mainElem);
+  }
+}
+renderPaletteTable();
 
 //Finally, remove the paragraph in the header that explains how to complete the 
 //problem.
-
-
+let headerParaElem = document.querySelector("header p");
+headerParaElem.style.display = "none";
 
 //Make functions and variables available to tester. DO NOT MODIFY THIS.
 if(typeof module !== 'undefined' && module.exports){
