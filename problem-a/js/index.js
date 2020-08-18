@@ -10,7 +10,6 @@ const COLORS_9 = {
   Purples: ['#fcfbfd','#efedf5','#dadaeb','#bcbddc','#9e9ac8','#807dba','#6a51a3','#54278f','#3f007d'],
 };
 
-/* Your code goes here! */
 
 //Create a variable `h1` that refers to the `<h1>` element in the DOM.
 let h1Elem = document.querySelector("h1");
